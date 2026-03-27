@@ -10,6 +10,16 @@ option java_outer_classname = "SupplierProtobuf";
 import "google/type/money.proto";
 
 
+message Signature {
+	string signerIdentifier = 1;
+	bytes signatureValue = 2;
+}
+
+message SignedResponse {
+  ProductsResponse response = 1;
+  Signature signature = 2;
+}
+
 // product information
 message Product {
   string identifier = 1;
@@ -28,5 +38,5 @@ message ProductsResponse {
 }
 
 service Supplier {
-  rpc listProducts(ProductsRequest) returns (ProductsResponse);
+  rpc listProducts(ProductsRequest) returns (SignedResponse);
 }
